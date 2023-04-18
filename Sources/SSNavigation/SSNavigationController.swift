@@ -65,7 +65,7 @@ extension SSNavigationController {
     }
 }
 
-public extension SSNavigationController {
+extension SSNavigationController {
 
     open override func popViewController(animated: Bool) -> UIViewController? {
         if let ss = topViewController as? SSViewController {
@@ -108,7 +108,7 @@ public extension SSNavigationController {
     }
 }
 
-public extension SSNavigationController {
+extension SSNavigationController {
     // status的颜色，优先交给顶部的控制，然后交给子类控制
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         if let presented = presentedViewController {

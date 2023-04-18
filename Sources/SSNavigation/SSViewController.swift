@@ -54,9 +54,13 @@ open class SSViewController: UIViewController {
 
     /// 返回默认的颜色
     private var statusBarDefault: Bool {
-        let userInterfaceStyle = view.traitCollection.userInterfaceStyle
-        if userInterfaceStyle == .dark {
-            return false
+        if #available(iOS 12.0, *) {
+            let userInterfaceStyle = view.traitCollection.userInterfaceStyle
+            if userInterfaceStyle == .dark {
+                return false
+            } else {
+                return true
+            }
         } else {
             return true
         }
@@ -121,9 +125,11 @@ open class SSViewController: UIViewController {
 
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle,
-           _isBlackStatusBar == nil {
-            setNeedsStatusBarAppearanceUpdate()
+        if #available(iOS 12.0, *) {
+            if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle,
+               _isBlackStatusBar == nil {
+                setNeedsStatusBarAppearanceUpdate()
+            }
         }
     }
 }
