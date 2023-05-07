@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Sources/**/*.swift'
   
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'ENABLE_MODULE_VERIFIER' => 'YES' }
   
 end
