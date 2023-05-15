@@ -119,13 +119,13 @@ extension UIViewController {
     }
 
     static func hookViewControllerSomeMethods() {
-        exchangeInstanceMethod(sel1: #selector(traitCollectionDidChange(_:)),
-                               sel2: #selector(__traitCollectionDidChange(_:)))
-        exchangeInstanceMethod(sel1: #selector(didMove(toParent:)),
-                               sel2: #selector(__didMove(toParent:)))
+        exchangeInstanceMethod(sel1: Selector("traitCollectionDidChange(_:)"),
+                               sel2: Selector("__traitCollectionDidChange(_:)"))
+        exchangeInstanceMethod(sel1: Selector("didMove(toParent:)"),
+                               sel2: Selector("__didMove(toParent:)"))
     }
 
-    @objc func __traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    func __traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         __traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 12.0, *) {
             if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle,
@@ -147,7 +147,7 @@ extension UIViewController {
         }
     }
 
-    @objc func __didMove(toParent parent: UIViewController?) {
+   func __didMove(toParent parent: UIViewController?) {
         __didMove(toParent: parent)
         if parent == nil {
             didGoBack()
