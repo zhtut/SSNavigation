@@ -5,7 +5,7 @@
 //  Created by zhtg on 2023/4/19.
 //
 
-import Foundation
+import UIKit
 
 public extension UINavigationBar {
     func configureAlpha(_ alpha: CGFloat) {

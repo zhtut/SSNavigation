@@ -73,7 +73,7 @@ public extension UIViewController {
         }
     }
 
-    open var navi: SSNavigationBarConfig {
+    var navi: SSNavigationBarConfig {
         get {
             if let config = objc_getAssociatedObject(self, &SSNavigationBarConfigKey) as? SSNavigationBarConfig {
                 return config
@@ -119,13 +119,13 @@ extension UIViewController {
     }
 
     static func hookViewControllerSomeMethods() {
-        exchangeInstanceMethod(sel1: Selector("traitCollectionDidChange(_:)"),
-                               sel2: Selector("__traitCollectionDidChange(_:)"))
-        exchangeInstanceMethod(sel1: Selector("didMove(toParent:)"),
-                               sel2: Selector("__didMove(toParent:)"))
+        exchangeInstanceMethod(sel1: #selector(traitCollectionDidChange(_:)),
+                               sel2: #selector(__traitCollectionDidChange(_:)))
+        exchangeInstanceMethod(sel1: #selector(didMove(toParent:)),
+                               sel2: #selector(__didMove(toParent:)))
     }
 
-    func __traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    @objc func __traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         __traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 12.0, *) {
             if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle,
@@ -135,7 +135,7 @@ extension UIViewController {
         }
     }
 
-    open var statusBarStyle: UIStatusBarStyle {
+    var statusBarStyle: UIStatusBarStyle {
         if navi.isBlackStatusBar {
             if #available(iOS 13.0, *) {
                 return .darkContent
@@ -147,7 +147,7 @@ extension UIViewController {
         }
     }
 
-   func __didMove(toParent parent: UIViewController?) {
+    @objc func __didMove(toParent parent: UIViewController?) {
         __didMove(toParent: parent)
         if parent == nil {
             didGoBack()
